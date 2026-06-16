@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alejandro Gómez Cantero — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --surface2: #1c1c1c;
+      --border: #2a2a2a;
+      --text: #e5e5e5;
+      --muted: #888888;
+      --accent: #00d4aa;
+      --accent2: #00b894;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links { display: flex; gap: 2rem; }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 4rem;
+      position: relative;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 15%;
+      right: 5%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0,212,170,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-content { max-width: 750px; position: relative; z-index: 1; }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 6px 14px;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero-desc {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat-num {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 6rem 4rem;
+    }
+
+    .section-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -1px;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 600px;
+      margin-bottom: 3rem;
+    }
+
+    /* SKILLS */
+    .skills-section { background: var(--surface); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      padding: 2rem 1.5rem;
+      transition: background 0.2s;
+    }
+
+    .skill-card:hover { background: var(--surface2); }
+
+    .skill-icon {
+      font-size: 24px;
+      margin-bottom: 1rem;
+    }
+
+    .skill-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .skill-detail {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .project-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.5px;
+    }
+
+    .project-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 3px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .project-desc {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .project-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .feature {
+      font-size: 13px;
+      color: var(--text);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .feature::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    .project-tech {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .tech-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--surface2);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    /* FORMATION */
+    .formation-section { background: var(--surface); }
+
+    .formation-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .formation-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+    }
+
+    .formation-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .formation-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .formation-place {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* CONTACT */
+    .contact-section {
+      text-align: center;
+      padding: 8rem 4rem;
+    }
+
+    .contact-email {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+      transition: opacity 0.2s;
+    }
+
+    .contact-email:hover { opacity: 0.8; }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .contact-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .contact-links a:hover { color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero { padding: 0 1.5rem; }
+      .hero h1 { font-size: 36px; }
+      section { padding: 4rem 1.5rem; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-features { grid-template-columns: 1fr; }
+      .formation-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: column; gap: 1.5rem; }
+      .nav-links { display: none; }
+      footer { flex-direction: column; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">alejandro<span>.dev</span></div>
+    <div class="nav-links">
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#skills">Skills</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#formacion">Formación</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">DEVELOPER</div>
+      <h1>Alejandro<br>Gómez <span>Cantero</span></h1>
+      <p class="hero-desc">Tengo 19 años, acabo de terminar mi grado superior en desarrollo y ya tengo proyectos reales funcionando. Desde el primer día me enganchó la automatización: si algo se puede hacer correr solo, lo hago correr solo.</p>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills-section" id="skills">
+    <div class="section-tag">// habilidades</div>
+    <div class="section-title">Lo que sé hacer</div>
+    <div class="section-desc">Tecnologías y herramientas que manejo en mi día a día.</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">⚡</div>
+        <div class="skill-name">JavaScript / Node.js</div>
+        <div class="skill-detail">Backend, APIs, automatización</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">HTML / CSS / JS</div>
+        <div class="skill-detail">Frontend, responsive, interfaces</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗄️</div>
+        <div class="skill-name">Bases de datos</div>
+        <div class="skill-detail">SQLite, MySQL, diseño relacional</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-name">Web scraping</div>
+        <div class="skill-detail">Playwright, extracción de datos</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🐳</div>
+        <div class="skill-name">Docker</div>
+        <div class="skill-detail">Contenedores, despliegue</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">☁️</div>
+        <div class="skill-name">Cloud / DevOps</div>
+        <div class="skill-detail">Railway, servidores, CI/CD</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔐</div>
+        <div class="skill-name">Seguridad</div>
+        <div class="skill-detail">Auth, cifrado, sesiones</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos">
+    <div class="section-tag">// proyectos</div>
+    <div class="section-title">Lo que he construido</div>
+    <div class="section-desc">Proyectos reales desarrollados durante mis prácticas en MKG20 / Cultura Eventos Sevilla.</div>
+
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-name">TicketAlert</div>
+          <div class="project-badge">PRODUCCIÓN</div>
+        </div>
+        <p class="project-desc">Sistema web que monitoriza automáticamente las webs oficiales de venta de entradas de monumentos turísticos en España y avisa por email cuando las fechas solicitadas están disponibles.</p>
+        <div class="project-features">
+          <div class="feature">Scraping automático de 5 monumentos</div>
+          <div class="feature">Alertas por email con SendGrid</div>
+          <div class="feature">Fecha concreta o rango de fechas</div>
+          <div class="feature">Panel admin para gestionar empresas</div>
+          <div class="feature">Login con roles y cifrado de contraseñas</div>
+          <div class="feature">Cada empresa solo ve sus propias alertas</div>
+          <div class="feature">Suscripciones con fecha de caducidad</div>
+          <div class="feature">Revisiones automáticas a las 8:00 y 20:00</div>
+          <div class="feature">Botón de revisión manual instantánea</div>
+          <div class="feature">Desplegado en la nube funcionando 24/7</div>
+        </div>
+        <div class="project-tech">
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">Express</span>
+          <span class="tech-tag">Playwright</span>
+          <span class="tech-tag">SQLite</span>
+          <span class="tech-tag">SendGrid</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">Railway</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-name">RallyIA iPad</div>
+          <div class="project-badge">EVENTOS</div>
+        </div>
+        <p class="project-desc">Aplicación para una actividad por equipos donde los participantes escriben un prompt, hacen una foto en una ubicación indicada y la inteligencia artificial genera una imagen nueva combinando ambos elementos.</p>
+        <div class="project-features">
+          <div class="feature">Integración con IA generativa de imágenes</div>
+          <div class="feature">Captura de fotos desde el iPad</div>
+          <div class="feature">Sistema de prompts personalizados</div>
+          <div class="feature">Actividad gamificada por equipos</div>
+          <div class="feature">Generación de imágenes en tiempo real</div>
+          <div class="feature">Diseñado para uso en eventos corporativos</div>
+        </div>
+        <div class="project-tech">
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">IA generativa</span>
+          <span class="tech-tag">iPad</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-name">Kahoot App</div>
+          <div class="project-badge">EVENTOS</div>
+        </div>
+        <p class="project-desc">Aplicación tipo quiz completa desarrollada desde cero para usar en eventos corporativos. Los participantes responden preguntas en tiempo real desde sus dispositivos.</p>
+        <div class="project-features">
+          <div class="feature">Sistema de preguntas con temporizador</div>
+          <div class="feature">Puntuación en tiempo real</div>
+          <div class="feature">Ranking de jugadores en directo</div>
+          <div class="feature">Panel de control para el presentador</div>
+          <div class="feature">Soporte para múltiples jugadores simultáneos</div>
+          <div class="feature">Personalizable para cada evento</div>
+        </div>
+        <div class="project-tech">
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">WebSockets</span>
+          <span class="tech-tag">HTML/CSS</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-name">Rankings</div>
+          <div class="project-badge">EVENTOS</div>
+        </div>
+        <p class="project-desc">Panel de control con un sistema de ranking en tiempo real para actividades corporativas. Las puntuaciones se actualizan en directo y se muestran en pantalla durante el evento.</p>
+        <div class="project-features">
+          <div class="feature">Rankings en tiempo real</div>
+          <div class="feature">Panel de control para gestionar equipos</div>
+          <div class="feature">Pantalla de visualización para proyector</div>
+          <div class="feature">Múltiples actividades configurables</div>
+          <div class="feature">Actualización instantánea de puntuaciones</div>
+          <div class="feature">Diseñado para eventos con público</div>
+        </div>
+        <div class="project-tech">
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">HTML/CSS</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-name">TVShow</div>
+          <div class="project-badge">EVENTOS</div>
+        </div>
+        <p class="project-desc">Sistema de control remoto para reproducir presentaciones en pantalla durante eventos. El operador gestiona las diapositivas desde un panel sin necesidad de estar junto al proyector.</p>
+        <div class="project-features">
+          <div class="feature">Control remoto de presentaciones</div>
+          <div class="feature">Reproducción en pantalla grande</div>
+          <div class="feature">Panel de control independiente</div>
+          <div class="feature">Gestión de contenido en directo</div>
+        </div>
+        <div class="project-tech">
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">HTML/CSS</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-name">Juegos Bomba</div>
+          <div class="project-badge">EVENTOS</div>
+        </div>
+        <p class="project-desc">Colección de juegos interactivos con diferentes temáticas diseñados para usar en eventos y actividades de empresa. Pensados para entretener y crear dinámicas de grupo.</p>
+        <div class="project-features">
+          <div class="feature">Múltiples juegos con temáticas diferentes</div>
+          <div class="feature">Interfaz interactiva y visual</div>
+          <div class="feature">Adaptados para pantalla grande en eventos</div>
+          <div class="feature">Fáciles de usar sin explicación previa</div>
+        </div>
+        <div class="project-tech">
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">HTML/CSS</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FORMACIÓN -->
+  <section class="formation-section" id="formacion">
+    <div class="section-tag">// formación</div>
+    <div class="section-title">Mi formación</div>
+    <div class="section-desc">Tres titulaciones que me dan un perfil completo en desarrollo y sistemas.</div>
+    <div class="formation-grid">
+      <div class="formation-card">
+        <div class="formation-year">2025 — 2026</div>
+        <div class="formation-title">Desarrollo de Aplicaciones Web (DAW)</div>
+        <div class="formation-place">Grado Superior</div>
+      </div>
+      <div class="formation-card">
+        <div class="formation-year">2025 — 2026</div>
+        <div class="formation-title">Desarrollo de Aplicaciones Multiplataforma (DAM)</div>
+        <div class="formation-place">Grado Superior</div>
+      </div>
+      <div class="formation-card">
+        <div class="formation-year">2023 — 2024</div>
+        <div class="formation-title">Sistemas Microinformáticos y Redes</div>
+        <div class="formation-place">Grado Medio</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCIA -->
+  <section id="sobre-mi">
+    <div class="section-tag">// experiencia</div>
+    <div class="section-title">Dónde he trabajado</div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-name">MKG20 — Cultura Eventos Sevilla</div>
+          <div class="project-badge">2025 — 2026</div>
+        </div>
+        <p class="project-desc">Prácticas como desarrollador en el departamento tecnológico. Desarrollo de aplicaciones web y móviles para eventos corporativos, automatización de procesos y despliegue de sistemas en la nube.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-name">Tier One</div>
+          <div class="project-badge">6 MESES</div>
+        </div>
+        <p class="project-desc">Experiencia laboral en empresa del sector tecnológico.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contact-section" id="contacto">
+    <div class="section-tag">// contacto</div>
+    <div class="section-title">¿Hablamos?</div>
+    <div class="section-desc" style="margin: 1rem auto 2rem; text-align: center;">Si buscas a alguien que sepa programar y que además entienda de sistemas, escríbeme.</div>
+    <a href="mailto:alexgc636@gmail.com" class="contact-email">alexgc636@gmail.com</a>
+    <div class="contact-links">
+      <a href="https://github.com/AlejandroGomezCantero" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/alejandro-g%C3%B3mez-cantero-07a656314/" target="_blank">LinkedIn</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>Alejandro Gómez Cantero — 2026</span>
+  </footer>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>
